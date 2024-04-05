@@ -5,10 +5,13 @@
 </script>
 
 <header>
-	<div class="corner">
+	<!-- <div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
 		</a>
+	</div> -->
+	<div class="">
+		<h1 class="text-white text-lg font-bold">TODO</h1>
 	</div>
 
 	<nav>
