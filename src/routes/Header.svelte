@@ -1,38 +1,23 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+	import { type Theme, theme, initTheme } from '../stores/theme';
+	import { initLocalStorage } from '../utils/localStorage';
+
+	initLocalStorage();
+	initTheme();
+
+	let current_theme: Theme;
+
+	theme.subscribe((theme) => {
+		current_theme = theme;
+		console.log('Current Theme', current_theme);
+	});
 </script>
 
-<header>
-	<!-- <div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
-		</a>
-	</div> -->
-	<div class="">
-		<h1 class="text-white text-lg font-bold">TODO</h1>
-	</div>
-
-	<nav>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
-		</svg>
-		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">Home</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">About</a>
-			</li>
-			<li aria-current={$page.url.pathname.startsWith('/sverdle') ? 'page' : undefined}>
-				<a href="/sverdle">Sverdle</a>
-			</li>
-		</ul>
-		<svg viewBox="0 0 2 3" aria-hidden="true">
-			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
-		</svg>
-	</nav>
+<header class="mt-10 mx-8">
+	<h1 class="header-text text-white font-bold tracking-widest">TODO</h1>
 
 	<div class="corner">
 		<a href="https://github.com/sveltejs/kit">
@@ -42,6 +27,10 @@
 </header>
 
 <style>
+	.header-text {
+		font-size: 3rem;
+	}
+
 	header {
 		display: flex;
 		justify-content: space-between;
@@ -64,12 +53,6 @@
 		width: 2em;
 		height: 2em;
 		object-fit: contain;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
 	}
 
 	svg {

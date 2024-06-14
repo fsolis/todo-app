@@ -4,7 +4,7 @@
 	import './app.css';
 </script>
 
-<div class="app">
+<div class="app max-w-screen-md mx-auto">
 	<Header />
 
 	<main>
