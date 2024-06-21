@@ -5,13 +5,11 @@ export const initLocalStorage = () => {
 	if (!browser) return {};
 
 	if (localStorage.getItem('todo')) {
-		console.log('localStorage exists');
 		const storage = JSON.parse(localStorage.getItem('todo') || '{}');
 		if (storage.theme) {
 			syncTheme(storage.theme);
 		}
 	} else {
-		console.log('Creating localStorage');
 		localStorage.setItem('todo', JSON.stringify({}));
 	}
 };
