@@ -1,4 +1,5 @@
 <script>
+	import TodoList from '../components/TodoList/TodoList.svelte';
 </script>
 
 <svelte:head>
@@ -6,7 +7,9 @@
 	<meta name="description" content="Todo app" />
 </svelte:head>
 
-<section class="flex flex-grow-[0.6] column justify-center items-center"></section>
+<section class="flex column justify-center z-10 mt-10">
+	<TodoList />
+</section>
 
 <style>
 </style>

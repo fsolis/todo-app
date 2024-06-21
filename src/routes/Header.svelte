@@ -18,14 +18,6 @@
 	theme.subscribe((theme) => {
 		current_theme = theme;
 		updateLocalStorage('theme', theme);
-
-		if (!browser) return;
-
-		if (theme === 'dark') {
-			document.documentElement.classList.add('dark');
-		} else {
-			document.documentElement.classList.remove('dark');
-		}
 	});
 
 	$: themeBanner =

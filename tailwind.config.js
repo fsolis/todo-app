@@ -1,7 +1,7 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: 'selector',
 	theme: {
-		darkMode: 'class',
 		screen: {
 			sm: '375px',
 			md: '720px',
