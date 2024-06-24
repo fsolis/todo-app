@@ -8,7 +8,7 @@
 	import bgMobileLight from '$lib/images/bg-mobile-light.jpg';
 	import { type Theme, theme, initTheme } from '../stores/theme';
 	import { initLocalStorage, updateLocalStorage, MQL } from '../utils';
-	import { IS_LG_SCREEN, IS_MD_SCREEN, IS_SMALL_SCREEN, isLgScreen, isMdScreen } from '../stores';
+	import { isMdScreen } from '../stores';
 
 	initLocalStorage();
 	initTheme();

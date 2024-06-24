@@ -11,6 +11,8 @@ export default {
 		colors: {
 			white: '#ffffff',
 			blue: '#3399FF',
+			turquoise: '#57ddff',
+			teal: '#c058f3',
 			'very-light-gray': '#fafafa',
 			'very-light-grayish-blue': '#f2f2f2',
 			'light-grayish-blue': '#dcdcdc',
