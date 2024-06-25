@@ -18,6 +18,7 @@
 			text,
 			complete: false
 		});
+
 		text = '';
 	};
 </script>
@@ -33,5 +34,6 @@
 		class="text-2xl h-full w-full ps-8 py-8 {sharedStyles}"
 		type="string"
 		placeholder="Create a new todo..."
+		value={text}
 	/>
 </form>

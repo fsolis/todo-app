@@ -42,14 +42,14 @@
 	on:focus={handleMouseFocus}
 	class="flex flex-row cursor-pointer items-center border-b border-dk-light-grayish-blue dark:border-very-dark-grayish-blue p-8 bg-white dark:bg-dk-very-dark-desaturated-blue"
 >
-	<CheckMark checked={completed} handleClick={handleItemSelect} />
+	<CheckMark checked={completed} on:toggle={handleItemSelect} />
 
-	<p class="text-2xl ps-8 text-light-grayish-blue {completed && 'opacity-75 line-through'}">
+	<p class="text-2xl ps-8 dark:text-light-grayish-blue {completed && 'opacity-75 line-through'}">
 		{text}
 	</p>
 
 	{#if isMouseOver}
-		<button class="ml-auto" aria-label="Delete Todo" on:click={handleRemove}>
+		<button class="ml-auto" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
 			<img src={cross} alt="Delete Todo" />
 		</button>
 	{/if}

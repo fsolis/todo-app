@@ -1,12 +1,13 @@
 <script lang="ts">
-	import { todoStore, type TodoItem } from '../../stores';
+	import { filteredTodos, type TodoItem } from '../../stores';
 	import NewTodoItem from './NewTodoItem.svelte';
+	import TodoListControls from './TodoListControls.svelte';
 	import TodoListItem from './TodoListItem.svelte';
 	import TodoListSync from './TodoListSync.svelte';
 
 	let todos: TodoItem[] = [];
 
-	todoStore.subscribe((store: TodoItem[]) => {
+	filteredTodos.subscribe((store: TodoItem[]) => {
 		todos = store;
 	});
 </script>
@@ -18,6 +19,8 @@
 		{#each todos as todo (todo.id)}
 			<TodoListItem id={todo.id} completed={todo.complete} text={todo.text} />
 		{/each}
+
+		<TodoListControls />
 	</div>
 
 	<TodoListSync />

@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import check from '../../lib/images/icon-check.svg';
 	export let checked = false;
 	export let disabled = false;
 
-	export const handleClick = () => {
+	const dispatch = createEventDispatcher();
+
+	export let handleClick = () => {
 		if (disabled) return;
-		checked = !checked;
+		dispatch('toggle');
 	};
 
 	$: active_class = checked
@@ -15,7 +18,7 @@
 
 <button
 	class="flex justify-center items-center h-7 w-7 min-w-7 rounded-full {active_class} {disabled}"
-	on:click={handleClick}
+	on:click|stopPropagation={handleClick}
 	type="button"
 >
 	<input type="checkbox" class="absolute h-0 w-0" {checked} />

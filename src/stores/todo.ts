@@ -6,7 +6,15 @@ export type TodoItem = {
 	complete: boolean;
 };
 
+export type TodoFilter = 'all' | 'completed' | 'active';
+
+/////////// STORES
+
 export const todoStore = writable<TodoItem[]>([]);
+
+export const todoFilter = writable<TodoFilter>('all');
+
+////////// DERIVED STORES
 
 export const completedItems = derived(todoStore, ($todoStore) => {
 	return $todoStore.filter((todo) => todo.complete);
@@ -15,6 +23,23 @@ export const completedItems = derived(todoStore, ($todoStore) => {
 export const pendingItems = derived(todoStore, ($todoStore) => {
 	return $todoStore.filter((todo) => !todo.complete);
 });
+
+export const itemsRemaining = derived(todoStore, ($todoStore) => {
+	return $todoStore.filter((todo) => !todo.complete).length;
+});
+
+export const filteredTodos = derived([todoStore, todoFilter], ([$todoStore, $todoFilter]) => {
+	switch ($todoFilter) {
+		case 'completed':
+			return $todoStore.filter((todo) => todo.complete);
+		case 'active':
+			return $todoStore.filter((todo) => !todo.complete);
+		default:
+			return $todoStore;
+	}
+});
+
+/////////// STORE ACTIONS
 
 export const syncTodoList = (newList: TodoItem[]) => {
 	todoStore.set(newList);
@@ -55,4 +80,8 @@ export const updateTodo = (id: string, text: string, complete: boolean) => {
 		todos[index] = { id, text, complete };
 		return todos;
 	});
+};
+
+export const updateFilter = (filter: TodoFilter) => {
+	todoFilter.set(filter);
 };
