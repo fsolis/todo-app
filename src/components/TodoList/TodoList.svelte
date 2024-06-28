@@ -10,6 +10,8 @@
 	filteredTodos.subscribe((store: TodoItem[]) => {
 		todos = store;
 	});
+
+	$: hasTodos = todos.length > 0;
 </script>
 
 <section class="w-full">
@@ -20,7 +22,9 @@
 			<TodoListItem id={todo.id} completed={todo.complete} text={todo.text} />
 		{/each}
 
-		<TodoListControls />
+		{#if hasTodos}
+			<TodoListControls />
+		{/if}
 	</div>
 
 	<TodoListSync />
