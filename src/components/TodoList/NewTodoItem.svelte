@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { addTodo } from '../../stores';
+	import { addTodo, todoStore, type TodoItem } from '../../stores';
 	import CheckMark from './CheckMark.svelte';
 	import { v4 } from 'uuid';
 
 	export let className: string = '';
 
 	let text: string = '';
+
 	const sharedStyles = 'rounded-md bg-white dark:bg-dk-very-dark-desaturated-blue';
+
 	const handleChange = (e: Event) => {
 		text = (e.target as HTMLInputElement).value;
 	};
@@ -16,7 +18,8 @@
 		addTodo({
 			id: v4(),
 			text,
-			complete: false
+			complete: false,
+			order: 0 // gets overridden by the insert function
 		});
 
 		text = '';

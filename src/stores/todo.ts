@@ -4,6 +4,7 @@ export type TodoItem = {
 	id: string;
 	text: string;
 	complete: boolean;
+	order: number;
 };
 
 export type TodoFilter = 'all' | 'completed' | 'active';
@@ -31,11 +32,11 @@ export const itemsRemaining = derived(todoStore, ($todoStore) => {
 export const filteredTodos = derived([todoStore, todoFilter], ([$todoStore, $todoFilter]) => {
 	switch ($todoFilter) {
 		case 'completed':
-			return $todoStore.filter((todo) => todo.complete);
+			return $todoStore.filter((todo) => todo.complete).sort((a, b) => a.order - b.order);
 		case 'active':
-			return $todoStore.filter((todo) => !todo.complete);
+			return $todoStore.filter((todo) => !todo.complete).sort((a, b) => a.order - b.order);
 		default:
-			return $todoStore;
+			return $todoStore.sort((a, b) => a.order - b.order);
 	}
 });
 
@@ -47,7 +48,7 @@ export const syncTodoList = (newList: TodoItem[]) => {
 
 export const addTodo = (item: TodoItem) => {
 	todoStore.update((todos) => {
-		todos.push(item);
+		todos.push({ ...item, order: todos.length });
 		return todos;
 	});
 };
@@ -74,13 +75,17 @@ export const uncompleteTodo = (id: string) => {
 	});
 };
 
-export const updateTodo = (id: string, text: string, complete: boolean) => {
+export const updateTodo = (id: string, text: string, complete: boolean, order: number) => {
 	todoStore.update((todos) => {
 		const index = todos.findIndex((todo) => todo.id === id);
-		todos[index] = { id, text, complete };
+		todos[index] = { id, text, complete, order};
 		return todos;
 	});
 };
+
+export const updateMultipleTodos = (newTodos: TodoItem[]) => {
+	todoStore.set(newTodos);
+}
 
 export const updateFilter = (filter: TodoFilter) => {
 	todoFilter.set(filter);
