@@ -5,6 +5,9 @@
 	import cross from '../../lib/images/icon-cross.svg';
 	import { completeTodo, removeTodo, uncompleteTodo } from '../../stores';
 	import { onMount } from 'svelte';
+	import { isTouchDevice } from '../../stores/utils';
+
+	let isTouch = false;
 
 	export let id: string;
 	export let text: string;
@@ -18,8 +21,7 @@
 
 	let stableElRef: HTMLDivElement;
 	let moveableRef: HTMLDivElement;
-	let offset = { x: 0, y: 0 };
-	// Height and width of element being dragged
+	let offset = { x: 0, y: 0 }; // Height and width of element being dragged
 	let height: number;
 	let width: number;
 
@@ -36,7 +38,9 @@
 	let isMouseOver = false;
 	let measured = false;
 
-	// TODO: When is touch device, always show the x
+	isTouchDevice.subscribe((value) => {
+		isTouch = value;
+	});
 
 	const handleMouseOver = () => {
 		isMouseOver = true;
@@ -65,25 +69,33 @@
 		completeTodo(id);
 	};
 
-	const handleMouseDown = (event: MouseEvent) => {
-		if (isDragging) return;
-		isDragging = true;
-		offset.x = event.clientX - defaultX;
-		offset.y = event.clientY - defaultY;
-	};
-
-	const handleMouseMove = (event: MouseEvent) => {
-		if (!isDragging) return;
-		didDrag = true;
-
-		x = event.clientX - offset.x - defaultX;
-		y = event.clientY - offset.y - defaultY;
-	};
-
 	const handleMouseUp = (event: MouseEvent) => {
-		const { clientX, clientY } = event;
-		dispatch('dragDrop', { id, x: clientX, y: clientY } as DragDropEvent);
+		event.preventDefault();
+		event.stopPropagation();
+		if (!isDragging) {
+			handleItemSelect();
+		} else {
+			const { clientX, clientY } = event;
+			dispatch('dragDrop', { id, x: clientX, y: clientY } as DragDropEvent);
+		}
 
+		isTouching = false;
+		isDragging = false;
+		x = 0;
+		y = 0;
+	};
+
+	const handleTouchEnd = (event: TouchEvent) => {
+		event.preventDefault();
+		event.stopPropagation();
+		if (!isDragging) {
+			handleItemSelect();
+		} else {
+			const { clientX, clientY } = event.changedTouches[0];
+			dispatch('dragDrop', { id, x: clientX, y: clientY } as DragDropEvent);
+		}
+
+		isTouching = false;
 		isDragging = false;
 		x = 0;
 		y = 0;
@@ -91,26 +103,27 @@
 
 	const handleTouchStart = (event: TouchEvent) => {
 		if (isDragging) return;
-		console.log('start');
+		console.log('touch start');
 		isTouching = true;
 		offset.x = event.touches[0].clientX - defaultX;
 		offset.y = event.touches[0].clientY - defaultY;
 	};
 
-	const handleTouchEnd = (event: TouchEvent) => {
-		console.log('end');
-		if (!isDragging) {
-			handleItemSelect();
-		}
-		event.preventDefault();
-		event.stopPropagation();
-		const { clientX, clientY } = event.changedTouches[0];
-		dispatch('dragDrop', { id, x: clientX, y: clientY } as DragDropEvent);
+	const handleMouseDown = (event: MouseEvent) => {
+		if (isDragging) return;
+		console.log('MouseDown');
+		isTouching = true;
+		offset.x = event.clientX - defaultX;
+		offset.y = event.clientY - defaultY;
+	};
 
-		isTouching = false;
-		isDragging = false;
-		x = 0;
-		y = 0;
+	const handleMouseMove = (event: MouseEvent) => {
+		if (!isTouching) return;
+		if (!isDragging) isDragging = true;
+		didDrag = true;
+
+		x = event.clientX - offset.x - defaultX;
+		y = event.clientY - offset.y - defaultY;
 	};
 
 	const handleTouchMove = (event: TouchEvent) => {
@@ -167,9 +180,6 @@
 	<div
 		role="listitem"
 		bind:this={stableElRef}
-		on:mouseover={handleMouseOver}
-		on:mouseleave={handleMouseExit}
-		on:focus={handleMouseFocus}
 		class={`bg-blue flex flex-row cursor-pointer items-center border-b
 		border-dk-light-grayish-blue dark:border-very-dark-grayish-blue p-8
 		bg-white dark:bg-dk-very-dark-desaturated-blue select-none ${isDragging && 'opacity-0 z-10 cursor-grabbing'}`}
@@ -180,8 +190,8 @@
 			{text}
 		</p>
 
-		{#if isMouseOver}
-			<button class="ml-auto" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
+		{#if !isDragging && (isMouseOver || isTouch)}
+			<button class="ml-auto z-20" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
 				<img src={cross} alt="Delete Todo" />
 			</button>
 		{/if}
@@ -191,6 +201,9 @@
 		bind:this={moveableRef}
 		role="listitem"
 		{id}
+		on:mouseover={handleMouseOver}
+		on:mouseleave={handleMouseExit}
+		on:focus={handleMouseFocus}
 		on:mousedown={handleMouseDown}
 		on:mousemove={handleMouseMove}
 		on:mouseup={handleMouseUp}
@@ -207,8 +220,8 @@
 			{text}
 		</p>
 
-		{#if isMouseOver}
-			<button class="ml-auto" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
+		{#if !isDragging && (isMouseOver || isTouch)}
+			<button class="ml-auto z-20" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
 				<img src={cross} alt="Delete Todo" />
 			</button>
 		{/if}
