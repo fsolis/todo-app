@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import moonIcon from '$lib/images/icon-moon.svg';
 	import sunIcon from '$lib/images/icon-sun.svg';
 	import bgDesktopDark from '$lib/images/bg-desktop-dark.jpg';
@@ -7,7 +6,7 @@
 	import bgMobileDark from '$lib/images/bg-mobile-dark.jpg';
 	import bgMobileLight from '$lib/images/bg-mobile-light.jpg';
 	import { type Theme, theme, initTheme } from '../stores/theme';
-	import { initLocalStorage, updateLocalStorage, MQL } from '../utils';
+	import { initLocalStorage, updateLocalStorage } from '../utils';
 	import { isMdScreen } from '../stores';
 
 	initLocalStorage();

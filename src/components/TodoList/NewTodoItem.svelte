@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { addTodo, todoStore, type TodoItem } from '../../stores';
+	import { addTodo } from '../../stores';
 	import CheckMark from './CheckMark.svelte';
 	import { v4 } from 'uuid';
 

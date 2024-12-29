@@ -78,14 +78,14 @@ export const uncompleteTodo = (id: string) => {
 export const updateTodo = (id: string, text: string, complete: boolean, order: number) => {
 	todoStore.update((todos) => {
 		const index = todos.findIndex((todo) => todo.id === id);
-		todos[index] = { id, text, complete, order};
+		todos[index] = { id, text, complete, order };
 		return todos;
 	});
 };
 
 export const updateMultipleTodos = (newTodos: TodoItem[]) => {
 	todoStore.set(newTodos);
-}
+};
 
 export const updateFilter = (filter: TodoFilter) => {
 	todoFilter.set(filter);

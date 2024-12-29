@@ -20,7 +20,7 @@
 	const dispatch = createEventDispatcher<EventMessages>();
 
 	let stableElRef: HTMLDivElement;
-	let moveableRef: HTMLDivElement;
+	let moveableRef: HTMLButtonElement;
 	let offset = { x: 0, y: 0 }; // Height and width of element being dragged
 	let height: number;
 	let width: number;
@@ -150,7 +150,7 @@
 		if (!stableElRef) return;
 
 		// get x and y values of the element
-		const { x: boundX, y: boundY, ...p } = stableElRef.getBoundingClientRect();
+		const { x: boundX, y: boundY } = stableElRef.getBoundingClientRect();
 		x = 0;
 		y = 0;
 		defaultX = boundX;
@@ -174,13 +174,10 @@
 
 <svelte:window on:abort={measureLayout} />
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <div class="relative">
 	<div
-		role="listitem"
 		bind:this={stableElRef}
-		class={`bg-blue flex flex-row cursor-pointer items-center border-b
+		class={`flex flex-row cursor-pointer items-center border-b
 		border-dk-light-grayish-blue dark:border-very-dark-grayish-blue p-8
 		bg-white dark:bg-dk-very-dark-desaturated-blue select-none ${isDragging && 'opacity-0 z-10 cursor-grabbing'}`}
 	>
@@ -197,9 +194,8 @@
 		{/if}
 	</div>
 
-	<div
+	<button
 		bind:this={moveableRef}
-		role="listitem"
 		{id}
 		on:mouseover={handleMouseOver}
 		on:mouseleave={handleMouseExit}
@@ -210,7 +206,7 @@
 		on:touchstart={handleTouchStart}
 		on:touchend={handleTouchEnd}
 		on:touchmove={handleTouchMove}
-		class={`absolute bg-blue flex flex-row cursor-pointer items-center border-b border-dk-light-grayish-blue 
+		class={`absolute flex flex-row cursor-pointer items-center border-b border-dk-light-grayish-blue 
 	dark:border-very-dark-grayish-blue p-8 bg-white dark:bg-dk-very-dark-desaturated-blue select-none ${isDragging && 'opacity-50 z-10 cursor-grabbing'} top-0 left-0 right-0`}
 		style="transform: translate({x}px, {y}px); width: {width}px;"
 	>
@@ -225,5 +221,5 @@
 				<img src={cross} alt="Delete Todo" />
 			</button>
 		{/if}
-	</div>
+	</button>
 </div>
