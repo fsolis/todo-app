@@ -19,8 +19,8 @@
 
 	const dispatch = createEventDispatcher<EventMessages>();
 
-	let stableElRef: HTMLDivElement;
-	let moveableRef: HTMLButtonElement;
+	let moveableRef: HTMLDivElement;
+	let stableElRef: HTMLButtonElement;
 	let offset = { x: 0, y: 0 }; // Height and width of element being dragged
 	let height: number;
 	let width: number;
@@ -174,28 +174,9 @@
 
 <svelte:window on:abort={measureLayout} />
 
-<div class="relative">
-	<div
-		bind:this={stableElRef}
-		class={`flex flex-row cursor-pointer items-center border-b
-		border-dk-light-grayish-blue dark:border-very-dark-grayish-blue p-8
-		bg-white dark:bg-dk-very-dark-desaturated-blue select-none ${isDragging && 'opacity-0 z-10 cursor-grabbing'}`}
-	>
-		<CheckMark checked={completed} on:toggle={handleItemSelect} />
-
-		<p class="text-2xl ps-8 dark:text-light-grayish-blue {completed && 'opacity-75 line-through'}">
-			{text}
-		</p>
-
-		{#if !isDragging && (isMouseOver || isTouch)}
-			<button class="ml-auto z-20" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
-				<img src={cross} alt="Delete Todo" />
-			</button>
-		{/if}
-	</div>
-
+<div>
 	<button
-		bind:this={moveableRef}
+		bind:this={stableElRef}
 		{id}
 		on:mouseover={handleMouseOver}
 		on:mouseleave={handleMouseExit}
@@ -206,9 +187,8 @@
 		on:touchstart={handleTouchStart}
 		on:touchend={handleTouchEnd}
 		on:touchmove={handleTouchMove}
-		class={`absolute flex flex-row cursor-pointer items-center border-b border-dk-light-grayish-blue 
-	dark:border-very-dark-grayish-blue p-8 bg-white dark:bg-dk-very-dark-desaturated-blue select-none ${isDragging && 'opacity-50 z-10 cursor-grabbing'} top-0 left-0 right-0`}
-		style="transform: translate({x}px, {y}px); width: {width}px;"
+		class="flex flex-row cursor-pointer items-center border-b border-dk-light-grayish-blue
+	dark:border-very-dark-grayish-blue p-8 bg-white dark:bg-dk-very-dark-desaturated-blue select-none w-full"
 	>
 		<CheckMark checked={completed} on:toggle={handleItemSelect} />
 
@@ -222,4 +202,19 @@
 			</button>
 		{/if}
 	</button>
+
+	{#if isDragging}
+		<div
+			bind:this={moveableRef}
+			class="absolute flex flex-row items-center border-b border-dk-light-grayish-blue dark:border-very-dark-grayish-blue p-8
+			bg-white dark:bg-dk-very-dark-desaturated-blue select-none opacity-50 z-10 cursor-grabbing top-0 left-0"
+			style="transform: translate({x}px, {y}px) width: {width}px height: {height}px"
+		>
+			<p
+				class="text-2xl ps-8 dark:text-light-grayish-blue {completed && 'opacity-75 line-through'}"
+			>
+				{text}
+			</p>
+		</div>
+	{/if}
 </div>
