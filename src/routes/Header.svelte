@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import moonIcon from '$lib/images/icon-moon.svg';
 	import sunIcon from '$lib/images/icon-sun.svg';
 	import bgDesktopDark from '$lib/images/bg-desktop-dark.jpg';
@@ -7,7 +6,7 @@
 	import bgMobileDark from '$lib/images/bg-mobile-dark.jpg';
 	import bgMobileLight from '$lib/images/bg-mobile-light.jpg';
 	import { type Theme, theme, initTheme } from '../stores/theme';
-	import { initLocalStorage, updateLocalStorage, MQL } from '../utils';
+	import { initLocalStorage, updateLocalStorage } from '../utils';
 	import { isMdScreen } from '../stores';
 
 	initLocalStorage();
@@ -34,15 +33,15 @@
 	};
 </script>
 
-<header class="flex justify-between mt-20 mx-8">
+<header class="mx-8 mt-20 flex justify-between">
 	<div
-		class="app-background absolute z-0 bg-cover left-0 right-0 top-0 w-full h-[350px] md:h-[400px]"
+		class="app-background absolute left-0 right-0 top-0 z-0 h-[350px] w-full bg-cover md:h-[400px]"
 		style="background-image: url({themeBanner});"
 	/>
 
-	<h1 class="text-5xl leading-10 text-white font-bold tracking-[.75rem] z-[1]">TODO</h1>
+	<h1 class="z-[1] text-5xl font-bold leading-10 tracking-[.75rem] text-white">TODO</h1>
 	<button class="toggle-btn z-[1]" on:click={handleClick}>
-		<img class="w-8 h-8" src={current_theme === 'light' ? moonIcon : sunIcon} alt="Theme Icon" />
+		<img class="h-8 w-8" src={current_theme === 'light' ? moonIcon : sunIcon} alt="Theme Icon" />
 	</button>
 </header>
 

@@ -75,18 +75,20 @@
 <section class="w-full">
 	<NewTodoItem className="mb-10" />
 
-	<div role="list" class="rounded-md">
-		{#each todos as todo, i}
-			<TodoListItem
-				bind:this={itemRefs[i]}
-				on:dragDrop={handleDragDrop}
-				completed={todo.complete}
-				id={todo.id}
-				text={todo.text}
-			/>
-		{/each}
-	</div>
-	<TodoListControls />
+	<div class="overflow-hidden rounded-md shadow-lg">
+		<div role="list" class="rounded-md">
+			{#each todos as todo, i}
+				<TodoListItem
+					bind:this={itemRefs[i]}
+					on:dragDrop={handleDragDrop}
+					completed={todo.complete}
+					id={todo.id}
+					text={todo.text}
+				/>
+			{/each}
+		</div>
+		<TodoListControls />
 
-	<TodoListSync />
+		<TodoListSync />
+	</div>
 </section>

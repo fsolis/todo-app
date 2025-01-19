@@ -40,7 +40,7 @@
 	};
 </script>
 
-<div class="flex flex-row p-6 bg-white dark:bg-dk-very-dark-desaturated-blue justify-between">
+<div class="flex flex-row justify-between bg-white p-6 dark:bg-dk-very-dark-desaturated-blue">
 	<p>
 		{#if $todoStore.length > 0}
 			{pendingItems} items left
@@ -52,17 +52,17 @@
 
 	<div>
 		<button
-			class="text-dark-grayish-blue font-bold pe-4 text-lg hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
+			class="pe-4 text-lg font-bold text-dark-grayish-blue hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
 				'all' && '!text-blue'}"
 			on:click={handleFilterAll}>All</button
 		>
 		<button
-			class="text-dark-grayish-blue font-bold text-lg hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
+			class="text-lg font-bold text-dark-grayish-blue hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
 				'active' && '!text-blue'}"
 			on:click={handleFilterActive}>Active</button
 		>
 		<button
-			class="text-dark-grayish-blue font-bold ps-4 text-lg hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
+			class="ps-4 text-lg font-bold text-dark-grayish-blue hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
 				'completed' && '!text-blue'}"
 			on:click={handleFilterComplete}>Completed</button
 		>

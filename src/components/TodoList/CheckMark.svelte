@@ -17,12 +17,12 @@
 </script>
 
 <button
-	class="flex justify-center items-center h-7 w-7 min-w-7 rounded-full {active_class} {disabled}"
+	class="flex h-7 w-7 min-w-7 items-center justify-center rounded-full {active_class} {disabled}"
 	on:click|stopPropagation={handleClick}
 	type="button"
 >
 	<input type="checkbox" class="absolute h-0 w-0" {checked} />
 	{#if checked}
-		<img class="w-3 h-3" src={check} alt="Checkmark" />
+		<img class="h-3 w-3" src={check} alt="Checkmark" />
 	{/if}
 </button>

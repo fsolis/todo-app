@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { addTodo, todoStore, type TodoItem } from '../../stores';
+	import { addTodo } from '../../stores';
 	import CheckMark from './CheckMark.svelte';
 	import { v4 } from 'uuid';
 
@@ -27,14 +27,14 @@
 </script>
 
 <form
-	class="flex flex-row ps-8 items-center {sharedStyles} {className}"
+	class="flex flex-row items-center ps-8 {sharedStyles} {className}"
 	on:submit|preventDefault={handleSubmit}
 >
 	<CheckMark disabled />
 
 	<input
 		on:change={handleChange}
-		class="text-2xl h-full w-full ps-8 py-8 {sharedStyles}"
+		class="h-full w-full py-8 ps-8 text-2xl {sharedStyles}"
 		type="string"
 		placeholder="Create a new todo..."
 		value={text}
