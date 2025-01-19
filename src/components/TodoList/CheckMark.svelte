@@ -19,6 +19,7 @@
 <button
 	class="flex h-7 w-7 min-w-7 items-center justify-center rounded-full {active_class} {disabled}"
 	on:click|stopPropagation={handleClick}
+	on:keydown|stopPropagation={(e) => e.key === 'Enter' || (e.key === 'space' && handleClick())}
 	type="button"
 >
 	<input type="checkbox" class="absolute h-0 w-0" {checked} />
