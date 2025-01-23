@@ -19,6 +19,7 @@
 <div
 	role="checkbox"
 	aria-checked={checked}
+	aria-label="Toggle Todo"
 	tabindex="0"
 	class="flex h-7 w-7 min-w-7 items-center justify-center rounded-full {active_class} {disabled &&
 		'disabled'}"
