@@ -228,7 +228,7 @@
 	});
 </script>
 
-<section class="w-full">
+<div class="w-full">
 	<NewTodoItem className="mb-10" />
 
 	<div class="mb-5 overflow-hidden rounded-md shadow-xl">
@@ -261,4 +261,4 @@
 	</div>
 
 	<TodoListFilterMobile />
-</section>
+</div>

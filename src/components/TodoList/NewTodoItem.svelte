@@ -35,7 +35,7 @@
 	<input
 		on:change={handleChange}
 		class="h-full w-full py-8 ps-8 text-2xl {sharedStyles}"
-		type="string"
+		type="text"
 		placeholder="Create a new todo..."
 		value={text}
 	/>

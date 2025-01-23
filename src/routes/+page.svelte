@@ -19,9 +19,9 @@
 	<meta name="description" content="Todo app" />
 </svelte:head>
 
-<section class="column z-10 mt-10 flex justify-center">
+<div class="column z-10 mt-10 flex justify-center">
 	<TodoList />
-</section>
+</div>
 
 <style>
 </style>
