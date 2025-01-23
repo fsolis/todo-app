@@ -16,14 +16,16 @@
 		: 'border-2 border-dk-light-grayish-blue dark:border-very-dark-grayish-blue';
 </script>
 
-<button
-	class="flex h-7 w-7 min-w-7 items-center justify-center rounded-full {active_class} {disabled}"
+<div
+	role="checkbox"
+	aria-checked={checked}
+	tabindex="0"
+	class="flex h-7 w-7 min-w-7 items-center justify-center rounded-full {active_class} {disabled &&
+		'disabled'}"
 	on:click|stopPropagation={handleClick}
-	on:keydown|stopPropagation={(e) => e.key === 'Enter' || (e.key === 'space' && handleClick())}
-	type="button"
+	on:keydown|stopPropagation={(e) => (e.key === 'Enter' || e.key === ' ') && handleClick()}
 >
-	<input type="checkbox" class="absolute h-0 w-0" {checked} />
 	{#if checked}
 		<img class="h-3 w-3" src={check} alt="Checkmark" />
 	{/if}
-</button>
+</div>
