@@ -1,12 +1,7 @@
 <script lang="ts">
-	import { todoFilter, itemsRemaining, updateFilter } from '../../stores';
+	import { todoFilter, updateFilter } from '../../stores';
 
-	let pendingItems = 0;
 	let activeFilter = 'all';
-
-	itemsRemaining.subscribe((items) => {
-		pendingItems = items;
-	});
 
 	todoFilter.subscribe((filter) => {
 		activeFilter = filter;

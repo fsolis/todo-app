@@ -40,7 +40,7 @@
 	/>
 
 	<h1 class="z-[1] text-5xl font-bold leading-10 tracking-[.75rem] text-white">TODO</h1>
-	<button class="toggle-btn z-[1]" on:click={handleClick}>
+	<button class="toggle-btn z-[1] -mt-2.5" on:click={handleClick}>
 		<img class="h-8 w-8" src={current_theme === 'light' ? moonIcon : sunIcon} alt="Theme Icon" />
 	</button>
 </header>
