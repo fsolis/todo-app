@@ -95,16 +95,23 @@
 		on:mousedown={!isTouch ? handleMouseDown : null}
 		on:touchstart={isTouch ? handleTouchStart : null}
 		class="flex w-full cursor-pointer select-none flex-row items-center
-	border-b border-dk-light-grayish-blue bg-white p-8 dark:border-very-dark-grayish-blue dark:bg-dk-very-dark-desaturated-blue"
+	border-b border-dk-light-grayish-blue bg-white px-6 py-8 md:px-8 dark:border-very-dark-grayish-blue dark:bg-dk-very-dark-desaturated-blue"
 	>
 		<CheckMark checked={completed} on:toggle={handleToggle} />
 
-		<p class="ps-8 text-2xl dark:text-light-grayish-blue {completed && 'line-through opacity-75'}">
+		<p
+			class="ps-8 text-2xl dark:text-light-grayish-blue {completed &&
+				'line-through opacity-75'}  mr-5 overflow-hidden text-ellipsis whitespace-nowrap"
+		>
 			{text}
 		</p>
 
 		{#if !isDragging && (isMouseOver || isTouch)}
-			<button class="z-20 ml-auto" aria-label="Delete Todo" on:click|stopPropagation={handleRemove}>
+			<button
+				class="z-20 ml-auto min-w-7"
+				aria-label="Delete Todo"
+				on:click|stopPropagation={handleRemove}
+			>
 				<img src={cross} alt="Delete Todo" />
 			</button>
 		{/if}

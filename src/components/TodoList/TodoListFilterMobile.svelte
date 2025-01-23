@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { todoFilter, itemsRemaining, todoStore, updateFilter } from '../../stores';
+	import { todoFilter, itemsRemaining, updateFilter } from '../../stores';
 
 	let pendingItems = 0;
 	let activeFilter = 'all';
@@ -11,21 +11,6 @@
 	todoFilter.subscribe((filter) => {
 		activeFilter = filter;
 	});
-
-	const handleClearCompleted = () => {
-		todoStore.update((todos) => {
-			return todos.map((todo) => {
-				if (todo.complete) {
-					return {
-						...todo,
-						complete: false
-					};
-				}
-
-				return todo;
-			});
-		});
-	};
 
 	const handleFilterComplete = () => {
 		updateFilter('completed');
@@ -40,17 +25,10 @@
 	};
 </script>
 
-<div class="flex flex-row justify-between bg-white p-6 dark:bg-dk-very-dark-desaturated-blue">
-	<p>
-		{#if $todoStore.length > 0}
-			{pendingItems} items left
-		{/if}
-		{#if $todoStore.length === 0}
-			No items left
-		{/if}
-	</p>
-
-	<div class="hidden md:block">
+<div
+	class="flex flex-row justify-center rounded-md bg-white p-6 shadow-xl md:hidden dark:bg-dk-very-dark-desaturated-blue"
+>
+	<div>
 		<button
 			class="pe-4 text-lg font-bold text-dark-grayish-blue hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue {activeFilter ===
 				'all' && '!text-blue'}"
@@ -67,8 +45,4 @@
 			on:click={handleFilterComplete}>Completed</button
 		>
 	</div>
-	<button
-		class="text-dark-grayish-blue hover:text-dk-very-dark-blue dark:hover:text-very-light-grayish-blue"
-		on:click={handleClearCompleted}>Clear Completed</button
-	>
 </div>

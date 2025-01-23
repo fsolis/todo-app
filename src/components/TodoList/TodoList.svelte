@@ -13,6 +13,7 @@
 	import TodoListSync from './TodoListSync.svelte';
 	import { isTouchDevice, isTouchInitialized } from '../../stores/utils';
 	import { onMount } from 'svelte';
+	import TodoListFilterMobile from './TodoListFilterMobile.svelte';
 
 	let currentlySelected: string | null = null;
 	let offset = { x: 0, y: 0 }; // Height and width of element being dragged
@@ -230,7 +231,7 @@
 <section class="w-full">
 	<NewTodoItem className="mb-10" />
 
-	<div class="overflow-hidden rounded-md shadow-lg">
+	<div class="mb-5 overflow-hidden rounded-md shadow-xl">
 		<div role="list" class="rounded-md">
 			{#each todos as todo, i}
 				<TodoListItem
@@ -258,4 +259,6 @@
 
 		<TodoListSync />
 	</div>
+
+	<TodoListFilterMobile />
 </section>

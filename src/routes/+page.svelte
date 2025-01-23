@@ -2,6 +2,7 @@
 	import TodoList from '../components/TodoList/TodoList.svelte';
 	import { onMount } from 'svelte';
 	import { setIsTouchDevice } from '../stores/utils';
+	import TodoListFilterMobile from '../components/TodoList/TodoListFilterMobile.svelte';
 
 	onMount(() => {
 		// Check if the device is a touch device
