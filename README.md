@@ -1,8 +1,8 @@
 # Developing
 
-### Install Dependencies
+## Install Dependencies
 
-- Requirements: Node v18.16.0, Yarn
+- Requirements: Node v22.13.1, Yarn
 - After installing yarn run: `yarn start`
 
 ```bash
